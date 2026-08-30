@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isaac Kipruto Lagat — Backend Python Developer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0B0F14;
+    --panel: #121820;
+    --panel-border: #1F2933;
+    --text: #E7ECF2;
+    --muted: #8B98A5;
+    --accent: #4FD1C5;
+    --accent-dim: #2E5F5A;
+    --warm: #E8A33D;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Status Bar (signature element) ---------- */
+  .statusbar {
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-border);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding: 10px 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .statusbar .wrap { display: flex; gap: 28px; align-items: center; }
+  .statusbar .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); margin-right: 7px;
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .statusbar b { color: var(--text); font-weight: 600; }
+
+  /* ---------- Hero ---------- */
+  header.hero { padding: 90px 0 70px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--mono); font-weight: 700; font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 18px;
+  }
+  h1 .accent { color: var(--accent); }
+  .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin-bottom: 32px; }
+  .hero-links { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 13px; padding: 10px 18px;
+    border: 1px solid var(--panel-border); border-radius: 4px; color: var(--text);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .btn.primary { background: var(--accent); color: #0B0F14; border-color: var(--accent); font-weight: 600; }
+  .btn.primary:hover { background: #6EE0D6; color: #0B0F14; }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: 56px 0; border-top: 1px solid var(--panel-border); }
+  .section-label {
+    font-family: var(--mono); font-size: 12px; color: var(--warm);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 22px;
+  }
+  h2 { font-family: var(--mono); font-size: 24px; margin-bottom: 22px; }
+
+  /* ---------- About ---------- */
+  .about-text { color: var(--muted); font-size: 16px; max-width: 680px; }
+  .about-text p + p { margin-top: 14px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .skill-group {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: 6px; padding: 18px 20px;
+  }
+  .skill-group .label {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .skill-group .value { font-size: 14px; color: var(--text); }
+  .skill-group.building { border-color: var(--warm); }
+  .skill-group.building .label { color: var(--warm); }
+
+  /* ---------- Projects ---------- */
+  .project-card {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: 6px; padding: 24px; margin-bottom: 18px;
+  }
+  .project-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .project-title { font-family: var(--mono); font-size: 17px; font-weight: 600; }
+  .project-tag {
+    font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 3px;
+    background: var(--accent-dim); color: var(--accent); white-space: nowrap;
+  }
+  .project-desc { color: var(--muted); font-size: 14.5px; margin: 12px 0 14px; }
+  .project-stack { font-family: var(--mono); font-size: 12px; color: var(--warm); margin-bottom: 12px; }
+  .project-link { font-family: var(--mono); font-size: 13px; }
+
+  /* ---------- Experience (log style) ---------- */
+  .log-entry { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--panel-border); }
+  .log-entry:last-child { border-bottom: none; }
+  .log-time {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    min-width: 130px; padding-top: 2px; flex-shrink: 0;
+  }
+  .log-body .role { font-weight: 600; font-size: 15.5px; }
+  .log-body .org { color: var(--accent); font-size: 14px; margin-bottom: 6px; }
+  .log-body ul { margin-left: 18px; color: var(--muted); font-size: 14px; }
+  .log-body li { margin-bottom: 4px; }
+
+  /* ---------- Education ---------- */
+  .edu-item { padding: 10px 0; font-size: 14.5px; color: var(--muted); }
+  .edu-item strong { color: var(--text); }
+
+  /* ---------- Contact ---------- */
+  .contact-links { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+  .contact-links a { font-family: var(--mono); font-size: 14px; }
+
+  footer { padding: 32px 0 60px; text-align: center; }
+  footer p { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .reveal-btn { cursor: pointer; background: none; font-family: var(--mono); font-size: 13px; }
+  .reveal-btn.revealed { border-color: var(--accent); color: var(--accent); cursor: default; }
+
+  @media (max-width: 600px) {
+    .log-entry { flex-direction: column; gap: 4px; }
+    .log-time { min-width: unset; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .statusbar .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="wrap">
+    <span><span class="dot"></span><b>ISAAC.LAGAT</b> — STATUS: AVAILABLE</span>
+    <span>UPTIME: <b>5+ YRS</b> SYSTEMS/SECURITY</span>
+    <span>STACK: <b>PYTHON · DJANGO · LINUX</b></span>
+    <span>BASE: <b>MANSFIELD, TX</b></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">// backend python developer</div>
+    <h1>Isaac Kipruto Lagat<br><span class="accent">builds and protects systems.</span></h1>
+    <p class="hero-sub">Python developer with a Django foundation, backed by five-plus years in Linux systems, security governance, and infrastructure diagnostics. Kenyan-American, Texas-based, bilingual in English and Swahili.</p>
+    <div class="hero-links">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn" href="https://github.com/isaacLagat" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/isaac-lagat" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="mailto:isaackipruto84@gmail.com">Email</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="section-label">// about</div>
+    <h2>Background</h2>
+    <div class="about-text">
+      <p>I currently work as a <strong>Server Repair & Diagnostics Technician</strong> at SMS InfoComm, troubleshooting NVIDIA HGX/DGX GPU server infrastructure in Linux environments day to day. Before that, I spent over five years as a <strong>Cybersecurity Officer</strong> with Kenya's Office of the Data Protection Commissioner, owning compliance investigations and governance processes independently.</p>
+      <p>On the development side, I completed an intensive software development bootcamp covering Python, Django, Java, and Dart/Flutter, and I build personal projects to keep sharpening those skills — including a raw-byte malware classifier and a fraud/threat detection pipeline, both linked below.</p>
+      <p>I hold a BSc in Information Technology from Kenyatta University, and I'm actively expanding into Docker, CI/CD, and cloud deployment. Long-term, my goal is entrepreneurial — building things that create jobs for others, not just staying employed.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-label">// stack</div>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="label">Languages</div>
+        <div class="value">Python, Java, Dart</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">Frameworks</div>
+        <div class="value">Django, Flutter</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">Data & ML</div>
+        <div class="value">SQL, scikit-learn, XGBoost, PyTorch</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">Tools</div>
+        <div class="value">Git/GitHub, Linux, Bash scripting</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">Security</div>
+        <div class="value">Data protection governance, secure system handling</div>
+      </div>
+      <div class="skill-group building">
+        <div class="label">Currently building</div>
+        <div class="value">Docker, CI/CD, cloud deployment (AWS/GCP)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-label">// projects</div>
+    <h2>Selected Work</h2>
+
+    <div class="project-card">
+      <div class="project-head">
+        <span class="project-title">Malware Detector — Raw-Byte CNN-GRU Classifier</span>
+        <span class="project-tag">PyTorch</span>
+      </div>
+      <p class="project-desc">A training pipeline that classifies Windows executables as benign or malware directly from raw byte sequences — no manual feature engineering. Combines a 1D CNN for local byte-pattern extraction with a GRU for sequential structure.</p>
+      <div class="project-stack">Python · PyTorch · argparse CLI</div>
+      <a class="project-link" href="https://github.com/isaacLagat/malware_DETECTOR" target="_blank" rel="noopener">→ View on GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-head">
+        <span class="project-title">Fraud & Cyber Threat Detection Pipeline</span>
+        <span class="project-tag">scikit-learn / XGBoost</span>
+      </div>
+      <p class="project-desc">An end-to-end ML classification pipeline comparing Logistic Regression, Random Forest, and XGBoost on transaction data, with automatic best-model selection by F1-score and a full evaluation report.</p>
+      <div class="project-stack">Python · pandas · scikit-learn · XGBoost</div>
+      <a class="project-link" href="https://github.com/isaacLagat/FRAUD-CYBER-THREAT-DETECTION" target="_blank" rel="noopener">→ View on GitHub</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-head">
+        <span class="project-title">Poultry Farmers — Multi-page Site</span>
+        <span class="project-tag">HTML/CSS</span>
+      </div>
+      <p class="project-desc">A five-page informational website with dedicated pages and styling per section, built and iterated over 190+ commits as a front-end fundamentals project.</p>
+      <div class="project-stack">HTML · CSS</div>
+      <a class="project-link" href="https://github.com/isaacLagat/poultry-farmers" target="_blank" rel="noopener">→ View on GitHub</a>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-label">// log</div>
+    <h2>Experience</h2>
+
+    <div class="log-entry">
+      <div class="log-time">2026 — present</div>
+      <div class="log-body">
+        <div class="role">Server Repair & Diagnostics Technician</div>
+        <div class="org">SMS InfoComm — Grapevine, TX</div>
+        <ul>
+          <li>Diagnose and resolve hardware/system-level issues on NVIDIA HGX/DGX GPU server infrastructure</li>
+          <li>Write Bash scripts to automate diagnostics and log review</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-time">2019 — 2025</div>
+      <div class="log-body">
+        <div class="role">Cybersecurity Officer</div>
+        <div class="org">Office of the Data Protection Commissioner — Kenya</div>
+        <ul>
+          <li>Owned data protection compliance and governance processes for 5+ years</li>
+          <li>Worked independently on investigations and audits with shifting priorities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-label">// education</div>
+    <h2>Education & Certifications</h2>
+    <div class="edu-item"><strong>BSc, Information Technology</strong> (Upper Division) — Kenyatta University</div>
+    <div class="edu-item"><strong>Power Learn Project</strong> Software Development Bootcamp — Python, Django, Java, Dart, Flutter</div>
+    <div class="edu-item"><strong>Google Cybersecurity</strong> Professional Certificate</div>
+    <div class="edu-item"><strong>ALX (Africa)</strong> — Data Science, Machine Learning, Data Analytics</div>
+    <div class="edu-item"><strong>CompTIA Certification</strong> — in progress</div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label">// contact</div>
+    <h2>Get in touch</h2>
+    <p class="about-text">Open to Python/backend developer opportunities.</p>
+    <div class="contact-links">
+      <a href="mailto:isaackipruto84@gmail.com">isaackipruto84@gmail.com</a>
+      <button type="button" class="btn reveal-btn" data-phone="us">Show mobile (US)</button>
+      <button type="button" class="btn reveal-btn" data-phone="ke">Show mobile (Kenya)</button>
+      <a href="https://github.com/isaacLagat" target="_blank" rel="noopener">github.com/isaacLagat</a>
+      <a href="https://linkedin.com/in/isaac-lagat" target="_blank" rel="noopener">linkedin.com/in/isaac-lagat</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>// built by isaac lagat — last updated 2026</p>
+  </footer>
+
+</div>
+
+<script>
+  // Numbers are assembled at click-time from parts, not stored as a
+  // plain scrapeable string in the page source.
+  var phoneParts = {
+    us: ['+1', '682', '461', '6200'],
+    ke: ['+254', '722', '775', '912']
+  };
+
+  document.querySelectorAll('.reveal-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-phone');
+      var parts = phoneParts[key];
+      var display = parts.join(' ');
+      var dial = parts.join('').replace(/\s/g, '');
+
+      var link = document.createElement('a');
+      link.href = 'tel:' + dial;
+      link.textContent = display;
+      link.className = 'reveal-btn revealed';
+      btn.replaceWith(link);
+    });
+  });
+</script>
+
+</body>
+</html>
